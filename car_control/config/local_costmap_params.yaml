@@ -1,0 +1,24 @@
+local_costmap:
+  global_frame: map
+  robot_base_frame: base_link
+  update_frequency: 18.109
+  publish_frequency: 10.0
+  static_map: false
+  rolling_window: true
+  width: 15.0
+  height: 15.0
+  resolution: 0.05
+  transform_tolerance: 1.0
+  plugins:
+   - {name: obstacle_layer, type: "costmap_2d::VoxelLayer"}
+#     - {name: social_layer,        type: "social_navigation_layers::ProxemicLayer"}   
+#     - {name: social_pass_layer,        type: "social_navigation_layers::PassingLayer"}  
+#     - {name: static_layer, type: "costmap_2d::StaticLayer"} 
+   - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
+ 
+  #Configuration for the sensors that the costmap will use to update a map   
+  obstacle_layer:
+    observation_sources: scan  
+    scan: {data_type: LaserScan, topic: /laser1, marking: true, clearing: true, expected_update_rate: 0} 
+  inflation_layer: 
+    inflation_radius: 0.3
